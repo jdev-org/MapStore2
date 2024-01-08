@@ -18,7 +18,8 @@ import Grid from '../../components/data/featuregrid/FeatureGrid';
 import BorderLayout from '../../components/layout/BorderLayout';
 import { toChangesMap} from '../../utils/FeatureGridUtils';
 import { sizeChange, setUp, setSyncTool } from '../../actions/featuregrid';
-import {mapLayoutValuesSelector} from '../../selectors/maplayout';
+import { mapLayoutValuesSelector } from '../../selectors/maplayout';
+import { userSelector } from "../../selectors/security";
 import {paginationInfo, describeSelector, wfsURLSelector, typeNameSelector, isSyncWmsActive} from '../../selectors/query';
 import {modeSelector, changesSelector, newFeaturesSelector, hasChangesSelector, selectedLayerFieldsSelector, selectedFeaturesSelector, getDockSize} from '../../selectors/featuregrid';
 
@@ -217,6 +218,7 @@ const FeatureDock = (props = {
                                     customEditorsOptions={props.customEditorsOptions}
                                     autocompleteEnabled={props.autocompleteEnabled}
                                     url={props.url}
+                                    user={props.user}
                                     typeName={props.typeName}
                                     filterRenderers={filterRenderers}
                                     enableColumnFilters={props.enableColumnFilters}
@@ -272,7 +274,8 @@ export const selector = createStructuredSelector({
     enableColumnFilters: state => get(state, 'featuregrid.enableColumnFilters'),
     pagination: createStructuredSelector(paginationInfo),
     pages: state => get(state, 'featuregrid.pages'),
-    size: state => get(state, 'featuregrid.pagination.size')
+    size: state => get(state, 'featuregrid.pagination.size'),
+    user: userSelector
 });
 
 const EditorPlugin = compose(
